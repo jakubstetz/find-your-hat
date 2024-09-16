@@ -21,7 +21,7 @@ const movePlayer = (coordinates, direction) => { // Move player on the field in 
 
   if (!direction.match(/^[uldr]$/)) { // Check for proper character input
     console.log('Invalid input! Enter u, l, d, or r for up, left, down, right, respectively.')
-    return;
+    return coordinates;
   }
 
   if ((direction === 'u' && coordinates[1] === 2) || // Check if player is trying to move up while already at top edge of field.
@@ -29,21 +29,26 @@ const movePlayer = (coordinates, direction) => { // Move player on the field in 
       (direction === 'd' && coordinates[1] === 0) || // Check if player is trying to move down while already at bottom edge of field.
       (direction === 'r' && coordinates[0] === 2)) { // Check if player is trying to move right while already at right edge of field.
     console.log('You\'re at the edge of the field and can\'t move in that direction!');
-    return;
+    return coordinates;
   }
 
   switch (direction) {
     case 'u':
       console.log('Moving up...');
-      return;
+      coordinates[1]++
+      return coordinates;
     case 'l':
       console.log('Moving left...');
-      return;
+      coordinates[0]--
+      return coordinates;
     case 'd':
       console.log('Moving down...');
-      return;
+      coordinates[1]--
+      return coordinates;
     case 'r':
       console.log('Moving right...');
+      coordinates[0]++
+      return coordinates;
   }
 }
 
@@ -64,5 +69,5 @@ myField.print();
 console.log();
 console.log('Which direction would you like to move?');
 direction = prompt('> ');
-movePlayer(playerCoordinates, direction);
+playerCoordinates = movePlayer(playerCoordinates, direction);
 console.log();
