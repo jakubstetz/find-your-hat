@@ -17,22 +17,31 @@ class Field {
   }
 }
 
-const movePlayer = (coordinates, direction) => { // Moving the player on the field in a specified direction.
-  if (!direction.match(/^[uldr]$/)) {
+const movePlayer = (coordinates, direction) => { // Move player on the field in a specified direction.
+
+  if (!direction.match(/^[uldr]$/)) { // Check for proper character input
     console.log('Invalid input! Enter u, l, d, or r for up, left, down, right, respectively.')
+    return;
+  }
+
+  if ((direction === 'u' && coordinates[1] === 2) || // Check if player is trying to move up while already at top edge of field.
+      (direction === 'l' && coordinates[0] === 0) || // Check if player is trying to move left while already at left edge of field.
+      (direction === 'd' && coordinates[1] === 0) || // Check if player is trying to move down while already at bottom edge of field.
+      (direction === 'r' && coordinates[0] === 2)) { // Check if player is trying to move right while already at right edge of field.
+    console.log('You\'re at the edge of the field and can\'t move in that direction!');
     return;
   }
 
   switch (direction) {
     case 'u':
       console.log('Moving up...');
-      break;
+      return;
     case 'l':
       console.log('Moving left...');
-      break;
+      return;
     case 'd':
       console.log('Moving down...');
-      break;
+      return;
     case 'r':
       console.log('Moving right...');
   }
@@ -48,12 +57,12 @@ let direction;
 
 //// Handling Gameplay ////
 
-let coordinates = [0,0];
+let playerCoordinates = [0,2]; // Standard x-y convention, with origin at bottom left, first number representing position on horizontal axis, and second number representing position on vertical axis.
 
 console.log();
 myField.print();
 console.log();
 console.log('Which direction would you like to move?');
 direction = prompt('> ');
-movePlayer(coordinates, direction);
+movePlayer(playerCoordinates, direction);
 console.log();
