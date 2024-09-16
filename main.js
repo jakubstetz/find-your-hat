@@ -18,6 +18,11 @@ class Field {
 }
 
 const movePlayer = (coordinates, direction) => { // Moving the player on the field in a specified direction.
+  if (!direction.match(/^[uldr]$/)) {
+    console.log('Invalid input! Enter u, l, d, or r for up, left, down, right, respectively.')
+    return;
+  }
+
   switch (direction) {
     case 'u':
       console.log('Moving up...');
@@ -30,9 +35,6 @@ const movePlayer = (coordinates, direction) => { // Moving the player on the fie
       break;
     case 'r':
       console.log('Moving right...');
-      break;
-    default:
-      console.log('Invalid input! Enter u, l, d, or r for up, left, down, right, respectively.')
   }
 }
 
