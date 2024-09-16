@@ -6,3 +6,9 @@ const characters = {
   field: '░',
   path: '*'
 }
+
+class Field {
+  constructor(input) { // input represents the field.
+
+  }
+}
