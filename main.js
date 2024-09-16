@@ -1,4 +1,4 @@
-const prompt = require('prompt-sync')({sigint: true});
+const prompt = require('prompt-sync')();
 
 const characters = {
   hat: '^',
@@ -17,10 +17,41 @@ class Field {
   }
 }
 
+const movePlayer = (coordinates, direction) => { // Moving the player on the field in a specified direction.
+  switch (direction) {
+    case 'u':
+      console.log('Moving up...');
+      break;
+    case 'l':
+      console.log('Moving left...');
+      break;
+    case 'd':
+      console.log('Moving down...');
+      break;
+    case 'r':
+      console.log('Moving right...');
+      break;
+    default:
+      console.log('Invalid input! Enter u, l, d, or r for up, left, down, right, respectively.')
+  }
+}
+
 const myField = new Field([
   ['*', '░', 'O'],
   ['░', 'O', '░'],
   ['░', '^', '░'],
 ]);
 
+let direction;
+
+//// Handling Gameplay ////
+
+let coordinates = [0,0];
+
+console.log();
 myField.print();
+console.log();
+console.log('Which direction would you like to move?');
+direction = prompt('> ');
+movePlayer(coordinates, direction);
+console.log();
