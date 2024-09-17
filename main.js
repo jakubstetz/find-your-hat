@@ -4,7 +4,8 @@ const characters = {
   hat: '^',
   hole: 'O',
   field: '░',
-  path: '*'
+  path: '▓', // Alternative characher: ▒
+  player: '*'
 }
 
 class Field {
@@ -15,9 +16,14 @@ class Field {
   print() { // Print the field.
     for (const row of this.field) console.log(row.join(''));
   }
+
+  adjustSpace(coordinates, kind) { // Switch out the character in a space of the field with another character.
+    // For kind, adjustSpace() expects 'hat', 'hole', 'field', 'path', or 'player'.
+    this.field[coordinates[0]][coordinates[1]] = characters[kind];
+  }
 }
 
-const movePlayer = (coordinates, direction) => { // Move player on the field in a specified direction.
+const movePlayer = (coordinates, direction, field) => { // Move player on the field in a specified direction.
 
   if (!direction.match(/^[uldr]$/)) { // Check for proper character input
     console.log('Invalid input! Enter u, l, d, or r for up, left, down, right, respectively.')
@@ -35,19 +41,27 @@ const movePlayer = (coordinates, direction) => { // Move player on the field in 
   switch (direction) {
     case 'u':
       console.log('Moving up...');
-      coordinates[0]--
+      field.adjustSpace(coordinates, 'path');
+      coordinates[0]--;
+      field.adjustSpace(coordinates, 'player');
       return coordinates;
     case 'l':
       console.log('Moving left...');
-      coordinates[1]--
+      field.adjustSpace(coordinates, 'path');
+      coordinates[1]--;
+      field.adjustSpace(coordinates, 'player');
       return coordinates;
     case 'd':
       console.log('Moving down...');
-      coordinates[0]++
+      field.adjustSpace(coordinates, 'path');
+      coordinates[0]++;
+      field.adjustSpace(coordinates, 'player');
       return coordinates;
     case 'r':
       console.log('Moving right...');
-      coordinates[1]++
+      field.adjustSpace(coordinates, 'path');
+      coordinates[1]++;
+      field.adjustSpace(coordinates, 'player');
       return coordinates;
   }
 }
@@ -69,5 +83,7 @@ myField.print();
 console.log();
 console.log('Which direction would you like to move?');
 direction = prompt('> ');
-playerCoordinates = movePlayer(playerCoordinates, direction);
+playerCoordinates = movePlayer(playerCoordinates, direction, myField);
+console.log();
+myField.print();
 console.log();
