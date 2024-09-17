@@ -24,10 +24,10 @@ const movePlayer = (coordinates, direction) => { // Move player on the field in 
     return coordinates;
   }
 
-  if ((direction === 'u' && coordinates[1] === 2) || // Check if player is trying to move up while already at top edge of field.
-      (direction === 'l' && coordinates[0] === 0) || // Check if player is trying to move left while already at left edge of field.
-      (direction === 'd' && coordinates[1] === 0) || // Check if player is trying to move down while already at bottom edge of field.
-      (direction === 'r' && coordinates[0] === 2)) { // Check if player is trying to move right while already at right edge of field.
+  if ((direction === 'u' && coordinates[0] === 0) || // Check if player is trying to move up while already at top edge of field.
+      (direction === 'l' && coordinates[1] === 0) || // Check if player is trying to move left while already at left edge of field.
+      (direction === 'd' && coordinates[0] === 2) || // Check if player is trying to move down while already at bottom edge of field.
+      (direction === 'r' && coordinates[1] === 2)) { // Check if player is trying to move right while already at right edge of field.
     console.log('You\'re at the edge of the field and can\'t move in that direction!');
     return coordinates;
   }
@@ -35,19 +35,19 @@ const movePlayer = (coordinates, direction) => { // Move player on the field in 
   switch (direction) {
     case 'u':
       console.log('Moving up...');
-      coordinates[1]++
+      coordinates[0]--
       return coordinates;
     case 'l':
       console.log('Moving left...');
-      coordinates[0]--
+      coordinates[1]--
       return coordinates;
     case 'd':
       console.log('Moving down...');
-      coordinates[1]--
+      coordinates[0]++
       return coordinates;
     case 'r':
       console.log('Moving right...');
-      coordinates[0]++
+      coordinates[1]++
       return coordinates;
   }
 }
@@ -62,7 +62,7 @@ let direction;
 
 //// Handling Gameplay ////
 
-let playerCoordinates = [0,2]; // Standard x-y convention, with origin at bottom left, first number representing position on horizontal axis, and second number representing position on vertical axis.
+let playerCoordinates = [0, 0]; // Matching Field nested array structure. Origin is at top left. First number represents position on vertical axis, with the positive direction being down. Second number represents position on horizontal axis, with positive direction being right.
 
 console.log();
 myField.print();
