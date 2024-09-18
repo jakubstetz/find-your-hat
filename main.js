@@ -3,8 +3,8 @@ const prompt = require('prompt-sync')();
 const characters = {
   hat: '^',
   hole: 'O',
-  field: '░',
-  path: '▓', // Alternative characher: ▒
+  field: '▓', // Alternative characher: ▒
+  path: '░', // This was originally the field character in the starter code.
   player: '*'
 }
 
@@ -40,50 +40,59 @@ const movePlayer = (coordinates, direction, field) => { // Move player on the fi
 
   switch (direction) {
     case 'u':
-      console.log('Moving up...');
       field.adjustSpace(coordinates, 'path');
       coordinates[0]--;
       field.adjustSpace(coordinates, 'player');
+      console.log('Moved up.');
       return coordinates;
     case 'l':
-      console.log('Moving left...');
       field.adjustSpace(coordinates, 'path');
       coordinates[1]--;
       field.adjustSpace(coordinates, 'player');
+      console.log('Moved left.');
       return coordinates;
     case 'd':
-      console.log('Moving down...');
       field.adjustSpace(coordinates, 'path');
       coordinates[0]++;
       field.adjustSpace(coordinates, 'player');
+      console.log('Moved down.');
       return coordinates;
     case 'r':
-      console.log('Moving right...');
       field.adjustSpace(coordinates, 'path');
       coordinates[1]++;
       field.adjustSpace(coordinates, 'player');
+      console.log('Moved right.');
       return coordinates;
   }
 }
 
 const myField = new Field([
-  ['*', '░', 'O'],
-  ['░', 'O', '░'],
-  ['░', '^', '░'],
+  ['*', '▓', 'O'],
+  ['▓', 'O', '▓'],
+  ['▓', '^', '▓'],
 ]);
 
 let direction;
+let gameEnd = false; // Tracking whether a game end condition has been met.
 
 //// Handling Gameplay ////
 
 let playerCoordinates = [0, 0]; // Matching Field nested array structure. Origin is at top left. First number represents position on vertical axis, with the positive direction being down. Second number represents position on horizontal axis, with positive direction being right.
 
-console.log();
+console.clear();
+console.log('*** Welcome to Find Your Hat! ***\n\n\n');
 myField.print();
 console.log();
 console.log('Which direction would you like to move?');
 direction = prompt('> ');
-playerCoordinates = movePlayer(playerCoordinates, direction, myField);
-console.log();
-myField.print();
-console.log();
+
+while (!gameEnd) {
+  console.clear()
+  console.log('*** Welcome to Find Your Hat! ***\n');
+  playerCoordinates = movePlayer(playerCoordinates, direction, myField);
+  console.log();
+  myField.print();
+  console.log();
+  console.log('Which direction would you like to move?');
+  direction = prompt('> ');
+}
