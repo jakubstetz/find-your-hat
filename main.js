@@ -77,7 +77,9 @@ let gameEnd = false; // Tracking whether a game end condition has been met.
 
 //// Handling Gameplay ////
 
-let playerCoordinates = [0, 0]; // Matching Field nested array structure. Origin is at top left. First number represents position on vertical axis, with the positive direction being down. Second number represents position on horizontal axis, with positive direction being right.
+// All coordinates match Field nested array structure. Origin is at top left. First number represents position on vertical axis, with the positive direction being down. Second number represents position on horizontal axis, with positive direction being right.
+let playerCoordinates = [0, 0];
+const hatCoordinates = [2, 1];
 
 console.clear();
 console.log('*** Welcome to Find Your Hat! ***\n\n\n');
@@ -93,6 +95,11 @@ while (!gameEnd) {
   console.log();
   myField.print();
   console.log();
-  console.log('Which direction would you like to move?');
-  direction = prompt('> ');
+  if (playerCoordinates.toString() === hatCoordinates.toString()) { // LESSON LEARNED: Can't do a simple equality for arrays, because arrays are of type object and so aren't compared by value but by where they are referencing.
+    console.log('You found your hat! Nice work!\n')
+    gameEnd = true;
+  } else {
+    console.log('Which direction would you like to move?');
+    direction = prompt('> ');
+  }
 }
