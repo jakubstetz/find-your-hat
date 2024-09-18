@@ -1,3 +1,5 @@
+/// Game Structure and Utilities ///
+
 const prompt = require('prompt-sync')();
 
 const characters = {
@@ -66,6 +68,10 @@ const movePlayer = (coordinates, direction, field) => { // Move player on the fi
   }
 }
 
+
+
+/// Game Preparation ///
+
 const myField = new Field([
   ['*', '▓', 'O'],
   ['▓', 'O', '▓'],
@@ -75,12 +81,14 @@ const myField = new Field([
 let direction;
 let gameEnd = false; // Tracking whether a game end condition has been met.
 
-//// Handling Gameplay ////
-
 // All coordinates match Field nested array structure. Origin is at top left. First number represents position on vertical axis, with the positive direction being down. Second number represents position on horizontal axis, with positive direction being right.
 let playerCoordinates = [0, 0];
 const hatCoordinates = [2, 1];
 const holeCoordinates = [[0, 2], [1, 1]];
+
+
+
+//// Gampeplay ////
 
 console.clear();
 console.log('*** Welcome to Find Your Hat! ***\n\n\n');
