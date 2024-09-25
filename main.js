@@ -53,8 +53,8 @@ const movePlayer = (coordinates, direction, field) => { // Move player on the fi
 
   if ((direction === 'u' && coordinates[0] === 0) || // Check if player is trying to move up while already at top edge of field.
       (direction === 'l' && coordinates[1] === 0) || // Check if player is trying to move left while already at left edge of field.
-      (direction === 'd' && coordinates[0] === 2) || // Check if player is trying to move down while already at bottom edge of field.
-      (direction === 'r' && coordinates[1] === 2)) { // Check if player is trying to move right while already at right edge of field.
+      (direction === 'd' && coordinates[0] === height-1) || // Check if player is trying to move down while already at bottom edge of field.
+      (direction === 'r' && coordinates[1] === width-1)) { // Check if player is trying to move right while already at right edge of field.
     console.log('You\'re at the edge of the field and can\'t move in that direction!');
     return coordinates;
   }
@@ -113,9 +113,9 @@ let playerCoordinates = [0, 0];
 console.clear();
 console.log('*** Welcome to Find Your Hat! ***\n');
 console.log('What size of field would you like to play on?');
-width = prompt('> Width: ');
-height = prompt('> Height: ');
-const field = new Field(Field.generateField(parseInt(width), parseInt(height)));
+width = parseInt(prompt('> Width: '));
+height = parseInt(prompt('> Height: '));
+const field = new Field(Field.generateField(width, height));
 
 //// Gameplay ////
 console.clear();
