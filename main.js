@@ -36,10 +36,14 @@ class Field {
 
   static generateField(width, height) { // Generate a field using a given width and height.
     const newField = [];
+
     // Generate a bare field, with no holes or hat.
     for (let j = 0; j < height; j++) {
       newField[j] = new Array(width).fill(characters.field);
     }
+
+    // Place player on the starting position.
+    newField[0][0] = characters.player;
     return newField;
   }
 }
