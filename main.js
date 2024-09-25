@@ -81,10 +81,8 @@ const movePlayer = (coordinates, direction, field) => { // Move player on the fi
 
 /// Game Preparation ///
 
-const myField = new Field(Field.generateField(10, 5));
-
 /*
-const myField = new Field([
+const field = new Field([
   ['*', '▓', 'O'],
   ['▓', 'O', '▓'],
   ['▓', '^', '▓'],
@@ -92,20 +90,25 @@ const myField = new Field([
 */
 
 let direction;
-let gameEnd = false; // Tracking whether a game end condition has been met.
+let gameEnd = false; // Track whether a game end condition has been met.
 
 // All coordinates match Field nested array structure. Origin is at top left. First number represents position on vertical axis, with the positive direction being down. Second number represents position on horizontal axis, with positive direction being right.
 let playerCoordinates = [0, 0];
 const hatCoordinates = [2, 1];
 const holeCoordinates = [[0, 2], [1, 1]];
 
+//// Game Setup ///
+console.clear();
+console.log('*** Welcome to Find Your Hat! ***\n');
+console.log('What size of field would you like to play on?');
+width = prompt('> Width: ');
+height = prompt('> Height: ');
+const field = new Field(Field.generateField(parseInt(width), parseInt(height)));
 
-
-//// Gampeplay ////
-
+//// Gameplay ////
 console.clear();
 console.log('*** Welcome to Find Your Hat! ***\n\n\n');
-myField.print();
+field.print();
 console.log();
 console.log('Which direction would you like to move?');
 direction = prompt('> ');
@@ -113,9 +116,9 @@ direction = prompt('> ');
 while (!gameEnd) {
   console.clear()
   console.log('*** Welcome to Find Your Hat! ***\n');
-  playerCoordinates = movePlayer(playerCoordinates, direction, myField);
+  playerCoordinates = movePlayer(playerCoordinates, direction, field);
   console.log();
-  myField.print();
+  field.print();
   console.log();
   if (playerCoordinates.toString() === hatCoordinates.toString()) { // LESSON LEARNED: Can't do a simple equality for arrays, because arrays are of type object and so aren't compared by value but by where they are referencing.
     console.log('You found your hat! Nice work!\n')
