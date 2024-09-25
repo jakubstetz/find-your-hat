@@ -19,6 +19,16 @@ class Field {
     for (const row of this.field) console.log(row.join(''));
   }
 
+  checkStatus(coordinates) { // Check if player has landed on their hat or a hole.
+    if (this.field[coordinates[0]][coordinates[1]] === characters.hat) {
+      return [true, false];
+    } else if (this.field[coordinates[0]][coordinates[1]] === characters.hole) {
+      return [false, true];
+    } else return [false, false];
+
+    // Return statements should be assigned to [onHat, onHole];
+  }
+
   adjustSpace(coordinates, kind) { // Switch out the character in a space of the field with another character.
     // For kind, adjustSpace() expects 'hat', 'hole', 'field', 'path', or 'player'.
     this.field[coordinates[0]][coordinates[1]] = characters[kind];
@@ -53,31 +63,33 @@ const movePlayer = (coordinates, direction, field) => { // Move player on the fi
     case 'u':
       field.adjustSpace(coordinates, 'path');
       coordinates[0]--;
+      [onHat, onHole] = field.checkStatus(coordinates);
       field.adjustSpace(coordinates, 'player');
       console.log('Moved up.');
       return coordinates;
     case 'l':
       field.adjustSpace(coordinates, 'path');
       coordinates[1]--;
+      [onHat, onHole] = field.checkStatus(coordinates);
       field.adjustSpace(coordinates, 'player');
       console.log('Moved left.');
       return coordinates;
     case 'd':
       field.adjustSpace(coordinates, 'path');
       coordinates[0]++;
+      [onHat, onHole] = field.checkStatus(coordinates);
       field.adjustSpace(coordinates, 'player');
       console.log('Moved down.');
       return coordinates;
     case 'r':
       field.adjustSpace(coordinates, 'path');
       coordinates[1]++;
+      [onHat, onHole] = field.checkStatus(coordinates);
       field.adjustSpace(coordinates, 'player');
       console.log('Moved right.');
       return coordinates;
   }
 }
-
-
 
 /// Game Preparation ///
 
@@ -91,11 +103,11 @@ const field = new Field([
 
 let direction;
 let gameEnd = false; // Track whether a game end condition has been met.
+let onHat = false; // Track whether the player has landed on their hat.
+let onHole = false; // Track whether the player has landed on a hole.
 
 // All coordinates match Field nested array structure. Origin is at top left. First number represents position on vertical axis, with the positive direction being down. Second number represents position on horizontal axis, with positive direction being right.
 let playerCoordinates = [0, 0];
-const hatCoordinates = [2, 1];
-const holeCoordinates = [[0, 2], [1, 1]];
 
 //// Game Setup ///
 console.clear();
@@ -120,10 +132,10 @@ while (!gameEnd) {
   console.log();
   field.print();
   console.log();
-  if (playerCoordinates.toString() === hatCoordinates.toString()) { // LESSON LEARNED: Can't do a simple equality for arrays, because arrays are of type object and so aren't compared by value but by where they are referencing.
+  if (onHat) {
     console.log('You found your hat! Nice work!\n')
     gameEnd = true;
-  } else if (holeCoordinates.some(hole => playerCoordinates.toString() === hole.toString())) {
+  } else if (onHole) {
     console.log('You\'ve fallen into a hole!\n');
     console.log('*** GAME OVER ***\n');
     gameEnd = true;
