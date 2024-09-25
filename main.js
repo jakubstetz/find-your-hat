@@ -44,6 +44,16 @@ class Field {
 
     // Place player on the starting position.
     newField[0][0] = characters.player;
+
+    // Place hat on the field.
+    const hatCoordinates = [0, 0]
+    while (hatCoordinates[0] === 0 && hatCoordinates[1] === 0) { // Generate random hat coordinates until hat is located on a space that isn't the players' starting position
+      hatCoordinates[0] = Math.floor(Math.random()*height);
+      hatCoordinates[1] = Math.floor(Math.random()*width);
+    }
+    newField[hatCoordinates[0]][hatCoordinates[1]] = characters.hat;
+
+
     return newField;
   }
 }
