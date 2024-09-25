@@ -23,6 +23,15 @@ class Field {
     // For kind, adjustSpace() expects 'hat', 'hole', 'field', 'path', or 'player'.
     this.field[coordinates[0]][coordinates[1]] = characters[kind];
   }
+
+  static generateField(width, height) { // Generate a field using a given width and height.
+    const newField = [];
+    // Generate a bare field, with no holes or hat.
+    for (let j = 0; j < height; j++) {
+      newField[j] = new Array(width).fill(characters.field);
+    }
+    return newField;
+  }
 }
 
 const movePlayer = (coordinates, direction, field) => { // Move player on the field in a specified direction.
@@ -72,11 +81,15 @@ const movePlayer = (coordinates, direction, field) => { // Move player on the fi
 
 /// Game Preparation ///
 
+const myField = new Field(Field.generateField(10, 5));
+
+/*
 const myField = new Field([
   ['*', '▓', 'O'],
   ['▓', 'O', '▓'],
   ['▓', '^', '▓'],
 ]);
+*/
 
 let direction;
 let gameEnd = false; // Tracking whether a game end condition has been met.
