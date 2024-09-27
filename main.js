@@ -1,6 +1,11 @@
-/// Game Structure and Utilities ///
+//// Game Structure and Utilities ////
 
+// Essential Variables //
 const prompt = require('prompt-sync')();
+let direction;
+let gameEnd = false; // Track whether a game end condition has been met.
+let onHat = false; // Track whether the player has landed on their hat.
+let onHole = false; // Track whether the player has landed on a hole.
 
 const characters = {
   hat: '^',
@@ -10,6 +15,7 @@ const characters = {
   player: '*'
 }
 
+// Field Class //
 class Field {
   constructor(input) { // input represents the field.
     this.field = input;
@@ -34,7 +40,7 @@ class Field {
     this.field[coordinates[0]][coordinates[1]] = characters[kind];
   }
 
-  static generateField(width, height) { // Generate a field using a given width and height.
+  static generateField(width, height, difficulty) { // Generate a field using a given width and height.
     const newField = [];
 
     // Generate a bare field, with no holes or hat.
@@ -58,6 +64,7 @@ class Field {
   }
 }
 
+// Function for Moving Player on the Field //
 const movePlayer = (coordinates, direction, field) => { // Move player on the field in a specified direction.
 
   if (!direction.match(/^[uldr]$/)) { // Check for proper character input
@@ -105,31 +112,18 @@ const movePlayer = (coordinates, direction, field) => { // Move player on the fi
   }
 }
 
-/// Game Preparation ///
-
-/*
-const field = new Field([
-  ['*', '▓', 'O'],
-  ['▓', 'O', '▓'],
-  ['▓', '^', '▓'],
-]);
-*/
-
-let direction;
-let gameEnd = false; // Track whether a game end condition has been met.
-let onHat = false; // Track whether the player has landed on their hat.
-let onHole = false; // Track whether the player has landed on a hole.
-
-// All coordinates match Field nested array structure. Origin is at top left. First number represents position on vertical axis, with the positive direction being down. Second number represents position on horizontal axis, with positive direction being right.
-let playerCoordinates = [0, 0];
-
-//// Game Setup ///
+//// Game Setup ////
 console.clear();
 console.log('*** Welcome to Find Your Hat! ***\n');
 console.log('What size of field would you like to play on?');
-width = parseInt(prompt('> Width: '));
-height = parseInt(prompt('> Height: '));
-const field = new Field(Field.generateField(width, height));
+let width = parseInt(prompt('> Width: '));
+let height = parseInt(prompt('> Height: '));
+console.log('What level of difficulty do you want to play at? Select a number between 1 and 5;');
+let difficulty = parseInt(prompt('> '));
+const field = new Field(Field.generateField(width, height, difficulty));
+
+// All coordinates match Field nested array structure. Origin is at top left. First number represents position on vertical axis, with the positive direction being down. Second number represents position on horizontal axis, with positive direction being right.
+let playerCoordinates = [0, 0];
 
 //// Gameplay ////
 console.clear();
