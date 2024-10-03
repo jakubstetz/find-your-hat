@@ -65,7 +65,7 @@ class Field {
     let currentHoles = 0;
     const newHoleCoordinates = [0,0];
     while (currentHoles !== numHoles) {
-      while ((newHoleCoordinates[0] === 0 && newHoleCoordinates[0] === 0) ||
+      while ((newHoleCoordinates[0] === 0 && newHoleCoordinates[1] === 0) ||
              (newHoleCoordinates[0] === hatCoordinates[0] && newHoleCoordinates[1] === hatCoordinates[1])) { // Ensure that a hole is not generated on the player's starting position or the hat's position.
         newHoleCoordinates[0] = Math.floor(Math.random()*height);
         newHoleCoordinates[1] = Math.floor(Math.random()*width);
