@@ -60,7 +60,8 @@ class Field {
     newField[hatCoordinates[0]][hatCoordinates[1]] = characters.hat;
 
     // Generate holes on field using difficulty input.
-    const numHoles = difficulty; // Formula for determining the number of holes on the field depending on field size and difficulty.
+    const fieldArea = width*height;
+    const numHoles = Math.ceil(fieldArea/15)*difficulty; // Formula for determining the number of holes on the field depending on field size and difficulty.
     let currentHoles = 0;
     const newHoleCoordinates = [0,0];
     while (currentHoles !== numHoles) {
@@ -168,3 +169,19 @@ while (!gameEnd) {
     direction = prompt('> ');
   }
 }
+
+/*
+// TESTING Field GENERATION PROCESS
+console.clear();
+console.log('What size of field would you like to play on?');
+let width = parseInt(prompt('> Width: '));
+let height = parseInt(prompt('> Height: '));
+console.log('What level of difficulty do you want to play at? Select a number between 1 and 5;');
+let difficulty = parseInt(prompt('> '));
+const field = [];
+for (let i = 0; i<20; i++) {
+  field[i] = new Field(Field.generateField(width, height, difficulty));
+  field[i].print();
+  console.log('\n');
+}
+*/
