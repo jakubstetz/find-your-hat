@@ -171,7 +171,7 @@ while (!gameEnd) {
 }
 
 /*
-// TESTING Field GENERATION PROCESS
+// TESTING FIELD GENERATION PROCESS
 console.clear();
 console.log('What size of field would you like to play on?');
 let width = parseInt(prompt('> Width: '));
